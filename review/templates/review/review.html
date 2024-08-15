@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review</title>
+    <link rel="stylesheet" href="{% static 'review/review.css' %}">
+</head>
+<body>
+    <h1>Review</h1>
+    <form action="/" method="POST">
+        {% csrf_token %}
+        
+        {% for field in  form %}
+        <div class="form-control {% if field.errors %}errors{% endif %}">
+            {{field.label_tag}}
+            {{field}}
+            {{field.errors}}
+        </div>      
+        {% endfor %}
+            
+        <button type="submit">Submit</button>
+    </form>
+
+    <div>
+        All review
+        {% for review in reviews  %}
+        <div>
+            <p><span>{{review.user_name}}</span>|<span>{{review.rating}}</span></p>
+            <p>{{review.review}}</p>
+        </div>
+        <hr>
+        {% endfor %}
+            
+    </div>
+</body>
+</html>
